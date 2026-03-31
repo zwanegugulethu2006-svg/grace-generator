@@ -1,11 +1,217 @@
+/* styles.css - Premium Soft Glassmorphism AI App */
+
+/* ---------- Body ---------- */
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(145deg, #f5f7fa, #e0eafc); /* soft blue-pink gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
+  color: #444; /* soft dark text for premium look */
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- Glass Card ---------- */
+.card {
+  background: rgba(255, 255, 255, 0.25); /* semi-transparent glass */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Title and Subtitle ---------- */
+h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #a69bc0; /* soft pastel purple */
+}
+
+/* Typing/fade-in subtitle */
+.subtitle {
+  font-size: 20px;
+  color: #8c8fa0; /* soft gray-purple */
+  margin-bottom: 20px;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #8c8fa0;
+  animation: typing 3s steps(40, end), blink 0.8s infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Paragraphs */
+p {
+  color: #666a7e;
+  font-size: 16px;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* ---------- Input ---------- */
+input {
+  width: 80%;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border: 1px solid #a69bc0;
+  box-shadow: 0 0 8px rgba(166, 155, 192, 0.3);
+}
+
+/* ---------- Buttons ---------- */
+button {
+  margin-top: 15px;
+  margin-left: 5px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#generate-btn {
+  background: rgba(255, 255, 255, 0.25);
+  color: #a69bc0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+#generate-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.clear-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #7a7590;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.clear-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ---------- Result Box ---------- */
+.result {
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.result h2 {
+  color: #a69bc0;
+  margin-bottom: 10px;
+}
+
+.result p {
+  color: #666a7e;
+  line-height: 1.6;
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  margin: 25px auto;
+  width: 60%;
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ---------- Quote ---------- */
+.quote {
+  font-style: italic;
+  color: #8c8fa0;
+  margin-top: 20px;
+}
+
+/* ---------- Footer ---------- */
 footer {
-  background: #f7eaea;
-  color: #6b7280;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #6b6f81;
   text-align: center;
   padding: 20px;
   position: fixed;
   bottom: 0;
   width: 100%;
   font-size: 14px;
-  border-top: 1px solid #f3dcdc;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-weight: 500;
+}
+footer a {
+  color: #a69bc0; /* soft pastel purple instead of blue */
+  text-decoration: none; /* remove underline */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+  color: #c5b5e0; /* lighter shade on hover */
+  transform: scale(1.05); /* subtle pop effect */
+}
+
+/* ---------- Floating Soft Shapes ---------- */
+.float-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float 12s infinite linear;
+  pointer-events: none;
+}
+
+.float-shape.shape1 {
+  width: 150px;
+  height: 150px;
+  background: #c5b5e0;
+  top: 10%;
+  left: 20%;
+}
+
+.float-shape.shape2 {
+  width: 100px;
+  height: 100px;
+  background: #a69bc0;
+  top: 70%;
+  left: 75%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+  100% { transform: translateY(0px); }
 }
