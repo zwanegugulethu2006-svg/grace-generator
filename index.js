@@ -1,77 +1,81 @@
-const generateBtn = document.getElementById('generate-btn');
-const clearBtn = document.getElementById('clear-btn');
-const outputText = document.getElementById('output-text');
-const userFeeling = document.getElementById('user-feeling');
-const subtitle = document.querySelector('.subtitle');
+const generateBtn = document.getElementById("generateBtn");
+const clearBtn = document.getElementById("clearBtn");
+const outputText = document.getElementById("output-text");
+const userFeeling = document.getElementById("feelingInput");
+const subtitle = document.querySelector(".subtitle");
 
-function typeSubtitle(text, element, speed = 100) {
-  element.textContent = '';
+function typeSubtitle(text, element, speed = 80) {
+  element.textContent = "";
   let i = 0;
-  const typing = () => {
-    if(i < text.length) {
+
+  function typing() {
+    if (i < text.length) {
       element.textContent += text[i];
       i++;
       setTimeout(typing, speed);
     }
   }
+
   typing();
 }
 
-typeSubtitle("A gentle space for your heart 💕", subtitle, 80);
+typeSubtitle("A gentle space for your heart 💕", subtitle);
 
-const prayers = {
-  stressed: {
-    prayer: "Lord, calm my anxious heart and give me peace.",
-    verse: "Matthew 11:28",
-    encouragement: "Rest in God’s promises."
-  },
-  anxious: {
-    prayer: "Lord, strengthen my mind and guide my steps.",
-    verse: "Philippians 4:13",
-    encouragement: "You are capable and loved."
-  },
-  grateful: {
-    prayer: "Lord, thank you for your endless blessings.",
-    verse: "1 Thessalonians 5:18",
-    encouragement: "Keep your heart full of joy."
-  }
-};
-
-function typeAnswer(text, element, speed = 30) {
-  element.innerHTML = '';
+function typeAnswer(text, element, speed = 25) {
+  element.innerHTML = "";
   let i = 0;
-  const typing = () => {
-    if(i < text.length) {
+
+  function typing() {
+    if (i < text.length) {
       element.innerHTML += text[i];
       i++;
       setTimeout(typing, speed);
     }
   }
+
   typing();
 }
 
-generateBtn.addEventListener('click', () => {
-  const feeling = userFeeling.value.toLowerCase().trim();
-  if(prayers[feeling]){
-    const p = prayers[feeling];
-    const answer = `
-      <strong>Prayer:</strong> ${p.prayer} <br>
-      <strong>Verse:</strong> ${p.verse} <br>
-      <strong>Encouragement:</strong> ${p.encouragement}
-    `;
-    typeAnswer(answer, outputText, 30);
-  } else {
-    typeAnswer("Sorry 💔, I don't have a prayer for that feeling yet. Try stressed, anxious, or grateful!", outputText, 30);
+function showGrace(response) {
+  let aiText = response.data.answer;
+  typeAnswer(aiText, outputText);
+}
+
+function generateGrace() {
+  let feeling = userFeeling.value.trim();
+
+  if (feeling === "") {
+    typeAnswer("Please enter how you feel first 💕", outputText);
+    return;
   }
+
+  outputText.innerHTML = "🌸 Grace is on the way...";
+
+  let apiKey = "49cf0a69t34a20oddf219c8dbeb93ab8";
+
+  let context =
+    "You are a comforting Christian assistant. Give a short prayer, one Bible verse, and one encouraging sentence.";
+
+  let prompt = `The user feels ${feeling}. Give a prayer, Bible verse, and encouragement.`;
+
+  let apiUrl = `https://api.shecodes.io/ai/v1/generate?prompt=${encodeURIComponent(
+    prompt
+  )}&context=${encodeURIComponent(context)}&key=${apiKey}`;
+
+  axios.get(apiUrl).then(showGrace).catch(() => {
+    typeAnswer("Sorry 💔 something went wrong with the AI.", outputText);
+  });
+}
+
+generateBtn.addEventListener("click", generateGrace);
+
+clearBtn.addEventListener("click", function () {
+  userFeeling.value = "";
+  outputText.innerHTML = "Your prayer and verse will appear here...";
 });
 
-clearBtn.addEventListener('click', () => {
-  userFeeling.value = '';
-  outputText.textContent = "Your prayer and verse will appear here...";
-});
-
-userFeeling.addEventListener('keypress', (e) => {
-  if(e.key === 'Enter') {
-    generateBtn.click();
+userFeeling.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    generateGrace();
   }
 });
